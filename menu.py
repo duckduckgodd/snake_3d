@@ -17,7 +17,8 @@ class Menu(Entity):
     def __init__(self):
         super().__init__(
             parent=camera.ui)
-
+        """
+        """
         self.menu_principal = Entity(parent=self, enabled=False)
         self.menu_pause = Entity(parent=self, enabled=False)
         self.menu_fin = Entity(parent=self, enabled=False)
@@ -92,11 +93,11 @@ class Menu(Entity):
             scale=(0.016, 0.016),
         )
 
+        # Liste de boutons de pause pour naviguer dans le menu
         self.boutons_pause = [self.reprendre,
-                              self.nouvelle_partie_pause, self.quitter_pause]  # Liste de boutons de pause pour naviguer dans le menu
-
-        self.menu_pause.on_enable = self.ouverture_menu(
-            self.boutons_pause)  # Lorsque le menu est activé, les boutons sont réinitialisés
+                              self.nouvelle_partie_pause, self.quitter_pause]
+        # Lorsque le menu est activé, les boutons sont réinitialisés
+        self.menu_pause.on_enable = self.ouverture_menu(self.boutons_pause)
 
         # Menu et écran de fin lorsque le joueur meurt--> Tous les éléments de l'interface
         self.background_fin = Sprite(
@@ -168,6 +169,11 @@ class Menu(Entity):
         liste_menu[0].color = couleurH
 
     def input(self, key):
+        """
+        touche --> action
+        fonction native de la bibliotheque ursina qui regarde les touches utilisées et leur associe des actions
+        ici, elle permet d'activer les menus et de naviguer dedans à l'aide des fleches
+        """
         if self.menu_pause.enabled:
             if key == "down arrow":
                 self.son_bouton.play()
